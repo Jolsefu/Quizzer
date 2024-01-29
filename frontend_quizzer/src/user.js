@@ -32,3 +32,10 @@ export function useSetUser(jsonData) {
 export function useIsAuthenticated() {
   return token.value !== null ? true : false
 }
+
+export function useSetLoggedOut() {
+  token.value = null
+  username.value = null
+
+  return {'success': true}
+}

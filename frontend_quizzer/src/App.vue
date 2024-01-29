@@ -1,21 +1,9 @@
 <script setup>
-  import { RouterLink, RouterView, useRouter } from 'vue-router'
-  import { useIsAuthenticated, useGetToken } from './user';
+  import { RouterLink, RouterView } from 'vue-router'
+  import { useIsAuthenticated } from './user';
   import Navbar from './components/Navbar.vue'
 
   const defaultClass = 'nav-link mx-3'
-
-  const router = useRouter()
-
-  function logOut() {
-    fetch('http://127.0.0.1:8000/auth/logout', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${useGetToken()}`
-      }
-    })
-    .then(() => router.go(0))
-  }
 </script>
 
 <template>
@@ -28,7 +16,7 @@
     <RouterLink v-if="useIsAuthenticated()" :class="defaultClass" :to="{ name: 'saved' }">
       Saved Files
     </RouterLink>
-    <a v-if="useIsAuthenticated()" @click.prevent="logOut" :class="defaultClass" href="#">Log Out</a>
+    <RouterLink v-if="useIsAuthenticated()" :class="defaultClass" :to="{ name: 'settings' }">Settings</RouterLink>
     <RouterLink v-if="!useIsAuthenticated()" :class="defaultClass" :to="{ name: 'login' }">Login</RouterLink>
     <RouterLink v-if="!useIsAuthenticated()" :class="defaultClass" :to="{ name: 'signup' }">Sign Up</RouterLink>
   </Navbar>

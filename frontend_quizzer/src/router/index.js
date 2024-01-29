@@ -6,6 +6,7 @@ import SignUpView from '../views/SignUpView.vue'
 import QuizView from '../views/QuizView.vue'
 import CreateView from '../views/CreateView.vue'
 import SavedView from '../views/SavedView.vue'
+import SettingsView from '../views/SettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: '/saved',
       name: 'saved',
       component: SavedView
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView
     }
   ]
 })
