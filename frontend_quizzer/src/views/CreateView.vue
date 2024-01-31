@@ -15,8 +15,13 @@
   import Status from '@/components/Status.vue'
 
   const errorPreFile = reactive({
-    'error': true,
+    'error': false,
     'message': []
+  })
+
+  const successPreFile = reactive({
+    'success': true,
+    'message': ''
   })
 
   const preFileLoaded = ref(false)
@@ -71,8 +76,6 @@
   }
   
   function databaseFile(id) {
-    console.log('called')
-
     databaseFileInfo.id = id
     fileFromDatabase.value = true
   }
@@ -94,7 +97,7 @@
     .then(response => response.json())
     .then(data => {
 
-      console.log(data)
+      successPreFile.message = 'File was updated successfully from the database.'
 
     })
     .catch(err => {
@@ -257,6 +260,12 @@
               v-model="errorPreFile" 
               :two-status="false"
               :shake="true"
+            />
+            <Status
+              v-model="successPreFile"
+              :two-status="true"
+              :shake="false"
+              :delay-time="1500"
             />
 
             <div class="container-fluid input-group mb-3">

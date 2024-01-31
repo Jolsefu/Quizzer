@@ -66,7 +66,7 @@
     </template>
 
     <span
-      v-if="twoStatus && !modelValue.message.length > 0"
+      v-if="twoStatus && !modelValue.message.length > 0 && defaultStatus"
       :class="{
         'text-bg-success': defaultStatus.success,
         'text-bg-danger': defaultStatus.error,
