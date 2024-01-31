@@ -1,0 +1,5 @@
+# Django REST Framework
+    pip install djangorestframework
+
+# Django CORS Headers
+    pip install django-cors-headers
