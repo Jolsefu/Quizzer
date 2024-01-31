@@ -3,12 +3,16 @@
 - Responsible for loading local files, or uploading files to database
 
 <script setup>
-  import { ref } from 'vue'
+  import { reactive, ref } from 'vue'
+  import Status from './Status.vue'
 
   const props = defineProps(['modelValue'])
   const emit = defineEmits(['fileIsLoaded'])
 
-  const error = ref('')
+  const error = reactive({
+    'error': true,
+    'message': '',
+  })
 
   const localFile = ref(null)
 
@@ -33,7 +37,7 @@
 
         console.log(err)
   
-        error.value = 'It must be a valid JSON File'
+        error.message = 'It must be a valid JSON File'
 
         return localFile.value.value = ''
       }
@@ -46,7 +50,12 @@
 <template>
   <div> 
     <label for="localFile" class="form-label">
-      Input Quiz File <span v-if="error.length > 1" class="badge text-bg-warning">!! {{ error }} !!</span> 
+      Input Quiz File
+      <Status 
+        v-model="error"
+        :two-status="false"
+        :shake="true"
+      />
     </label>
     <input ref="localFile" class="form-control" type="file" id="localFile" @input="loadLocalFile">
   </div>
