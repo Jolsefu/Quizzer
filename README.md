@@ -1,4 +1,4 @@
-<div align="center" style="font-size: 30px;font-weight: bold;">Quizzer</div>
+<h1 align="center">Quizzer</h1>
 
 ## Introduction
 
