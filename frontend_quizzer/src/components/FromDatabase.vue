@@ -10,7 +10,7 @@
 
   import TypeButton from './TypeButton.vue'
   
-  const props = defineProps(['modelValue', 'getFileInfo'])
+  const props = defineProps(['modelValue', 'getFileInfo', 'small'])
   const emit = defineEmits(['fileIsLoaded', 'useFileInfo'])
 
   onMounted(setSavedFiles)
@@ -52,14 +52,12 @@
 </script>
 
 <template>
-  <div v-if="files.length > 0" id="files" class="container-fluid text-center mt-5">
+  <div v-if="files.length > 0" id="files" class="container-fluid text-center" :class="{'mt-5': !small}">
     <div class="fs-5">
       From Your Database
     </div>
     <div v-for="file in files" class="my-2">
-      Quiz '{{ file.name }}',
-      Uploaded at {{ useDateParser(file.dt) }}
-      <TypeButton @click="loadFile(file.id)" button-display="Load File" />
+      <TypeButton @click="loadFile(file.id)" :button-display="`Load ${file.name}`" />
     </div>
   </div>
 </template>

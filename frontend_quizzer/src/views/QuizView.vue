@@ -118,10 +118,6 @@
     loaded.value = true
   }
 
-  function loadDatabaseFile() {
-    // TODO
-  }
-
   function quizJsonParser() {
     disableQuiz()
 
@@ -356,61 +352,88 @@
 
         <template v-if="!loaded || loaded && (!quizActivated && !cardActivated && !quizIsAnimating)">
           <template v-if="loadType === 'databaseFile' || loadType === 'localFile'">
-            <div id="pre-quiz" class="container-fluid text-center">
-              <div id="back">
-                <TypeButton 
-                  v-model="loadType" 
-                  button-value="" 
-                  button-display="Back" 
+            <div class="container-fluid text-center">
+              <template v-if="loadType === 'databaseFile'">
+                <FromDatabase 
+                  v-model="finalFormatted"
+                  @file-is-loaded="loadFile"
+                  :small="true"
                 />
-              </div>
 
-              <div id="vertical-line"></div>
-
-              <div id="load-file">
-                <template v-if="loadType === 'databaseFile'">
-                  <FromDatabase 
-                    v-model="finalFormatted"
-                    @file-is-loaded="loadFile" 
+                <div disabled class="btn-group" role="group">
+                  <input
+                    @input="quizJsonParser"
+                    id="btnradio1"
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio"
+                    autocomplete="off"
                   />
-                </template>
+                  <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio1"> 
+                    Quiz
+                  </label>
+                  <input
+                    @input="cardJsonParser"
+                    id="btnradio2"
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio"
+                    autocomplete="off"
+                  />
+                  <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio2"> 
+                    Cards
+                  </label>
+                </div>
+              </template>
 
+              <div id="pre-quiz" class="container-fluid text-center">
                 <template v-if="loadType === 'localFile'">
-                  <TypeFileInput 
-                    v-model="finalFormatted" 
-                    :ref-local-file="localFile" 
-                    @file-is-loaded="loadFile" 
-                  />
+                  <div id="back">
+                    <TypeButton 
+                      v-model="loadType" 
+                      button-value="" 
+                      button-display="Back" 
+                    />
+                  </div>
+
+                  <div id="vertical-line"></div>
+
+                  <div id="load-file">
+                    <TypeFileInput 
+                      v-model="finalFormatted" 
+                      :ref-local-file="localFile" 
+                      @file-is-loaded="loadFile" 
+                    />
+                  </div>
+
+                  <div id="vertical-line"></div>
+
+                  <div disabled class="btn-group-vertical d-flex" role="group">
+                    <input
+                      @input="quizJsonParser"
+                      id="btnradio1"
+                      type="radio"
+                      class="btn-check"
+                      name="btnradio"
+                      autocomplete="off"
+                    />
+                    <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio1"> 
+                      Quiz
+                    </label>
+                    <input
+                      @input="cardJsonParser"
+                      id="btnradio2"
+                      type="radio"
+                      class="btn-check"
+                      name="btnradio"
+                      autocomplete="off"
+                    />
+                    <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio2"> 
+                      Cards
+                    </label>
+                  </div>
                 </template>
               </div>
-
-              <div id="vertical-line"></div>
-
-              <div disabled class="btn-group-vertical d-flex" role="group" aria-label="Vertical radio toggle button group">
-                <input
-                  @input="quizJsonParser"
-                  id="btnradio1"
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  autocomplete="off"
-                />
-                <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio1"> 
-                  Quiz
-                </label>
-                <input
-                  @input="cardJsonParser"
-                  id="btnradio2"
-                  type="radio"
-                  class="btn-check"
-                  name="btnradio"
-                  autocomplete="off"
-                />
-                <label :class="{'disabled': !loaded}" class="btn btn-outline-light" for="btnradio2"> 
-                  Cards
-                </label>
-              </div>
-
             </div>
           </template>
 
